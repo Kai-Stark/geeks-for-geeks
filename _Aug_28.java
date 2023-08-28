@@ -1,20 +1,34 @@
-package geeks_for_geeks;
+package leetcode.binarySearch;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class _Aug_28 {
-    class Node {
-        int data;
-        Node next;
-        Node(int d){
-            this.data =d;
+    class MyStack {
+
+        private Queue<Integer> q;
+
+        public MyStack() {
+            q= new LinkedList<>();
         }
-    }
-    Node removeDuplicates(Node head)
-    {
-        Node temp = head;
-        while(temp.next!=null){
-            if(temp.data==temp.next.data) temp.next = temp.next.next;
-            else temp = temp.next;
+
+        public void push(int x) {
+            q.add(x);
+            for(int i=1;i<q.size();i++){
+                q.add(q.remove());
+            }
         }
-        return head;
+
+        public int pop() {
+            return q.remove();
+        }
+
+        public int top() {
+            return q.peek();
+        }
+
+        public boolean empty() {
+            return q.isEmpty();
+        }
     }
 }
