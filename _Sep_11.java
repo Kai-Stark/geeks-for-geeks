@@ -1,18 +1,24 @@
-package geeks_for_geeks;
+package leetcode.binarySearch;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class _Sep_11 {
-    public static void main(String[] args) {
-        int n = new Random().nextInt(50);
-        System.out.println(isLucky(n)+" "+n);
-    }
+    public List<List<Integer>> groupThePeople(int[] groupSizes) {
+        HashMap<Integer, List<Integer>> temp_group = new HashMap<>();
+        List<List<Integer>> result = new ArrayList<>();
 
-    private static boolean isLucky(int n) {
-        for(int i=2;i<=n;i++){
-            if(n%i == 0) return false;
-            n = n-(n/i);
+        for(int i = 0; i < groupSizes.length; i++) {
+            int size = groupSizes[i];
+            temp_group.putIfAbsent(size, new ArrayList<>());
+            temp_group.get(size).add(i);
+
+            if(temp_group.get(size).size() == size) {
+                result.add(new ArrayList<>(temp_group.get(size)));
+                temp_group.get(size).clear();
+            }
         }
-        return true;
+        return result;
     }
 }
